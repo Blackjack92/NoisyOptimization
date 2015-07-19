@@ -70,24 +70,22 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn] = ...
         % Ordering and selection
         % TODO: check ordering
         ranks = RankPop(offspringPopulation, ordering);
-        sum.sigma = 0;
-        sum.y = 0; 
-        sum.s = 0;
+        sum_sigma = 0;
+        sum_y = 0; 
+        sum_s = 0;
         for m=1:mu
-          sum.sigma = sum.sigma + offspringPopulation(ranks(m)).sigma;
-          sum.s = sum.s + offspringPopulation(ranks(m)).s;
-          sum.y = sum.y + offspringPopulation(ranks(m)).y;
+          sum_sigma = sum_sigma + offspringPopulation(ranks(m)).sigma;
+          sum_s = sum_s + offspringPopulation(ranks(m)).s;
+          sum_y = sum_y + offspringPopulation(ranks(m)).y;
         end
         
         % Centroid evaluation
-        parent.sigma = sum.sigma/mu;
-        parent.s = sum.s ./ mu;
-        parent.y = sum.y ./ mu;
-        parent.f = feval(goal_f_name, parent.y);
+        parent.sigma = sum_sigma/mu;
+        parent.s = sum_s ./ mu;
+        parent.y = sum_y ./ mu;
+        parent.f = feval(input.goal_f_name, Parent.y);
         
         % Covariance matrix update
         C = (1 - 1/tau_c) .^ adjacence_C.*C + adjacence_C/tau_c.*(parent.s*parent.s');
-        
-        % Create output
     end
 end

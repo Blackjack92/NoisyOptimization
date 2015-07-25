@@ -4,5 +4,5 @@ function [fitness] = DifferentPowersFitness(y)
   
   for i=1:N
     fitness = fitness + (y(i)^2)^(1 + 5 * ((i - 1) / (N - 1)));
-  endfor
-endfunction
+  end
+end

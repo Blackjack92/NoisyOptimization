@@ -22,8 +22,9 @@
 %| lambda_dyn          | [M]         | Number of offsprings after each run|
 %| noisy_f_name        | String      | Noisy function name                |
 %| goal_f_name         | String      | Goal function name                 |
+%| fev_dyn             | [M]         | Function evaluations after each run|
 %--------------------------------------------------------------------------
-function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn] = ...
+function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ...
     CMSA_ES(sigma_init, y_init, mu_init, theta_init, noisy_f_name, goal_f_name)
     
     % Initialize input parameters
@@ -40,6 +41,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn] = ...
     sigma_dyn = [];
     y_dyn = [];
     lambda_dyn = [];
+    fev_dyn =[];
     
     % Initialize covariance matrix
     C = eye(n);
@@ -51,6 +53,8 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn] = ...
     
     % Initialize number of runs
     numberOfRuns = 1000;
+    generation = 0;
+    fevaluations = 0;
     
     % Main loop
     while (numberOfRuns > 0) 
@@ -69,14 +73,14 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn] = ...
        
         % Ordering and selection
         % TODO: check ordering
-        ranks = RankPop(offspringPopulation, ordering);
+        ranking = RankPopulation(offspringPopulation, ordering);
         sum.sigma = 0;
         sum.y = 0; 
         sum.s = 0;
         for m=1:mu
-          sum.sigma = sum.sigma + offspringPopulation(ranks(m)).sigma;
-          sum.s = sum.s + offspringPopulation(ranks(m)).s;
-          sum.y = sum.y + offspringPopulation(ranks(m)).y;
+          sum.sigma = sum.sigma + offspringPopulation(ranking(m)).sigma;
+          sum.s = sum.s + offspringPopulation(ranking(m)).s;
+          sum.y = sum.y + offspringPopulation(ranking(m)).y;
         end
         
         % Centroid evaluation
@@ -84,10 +88,21 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn] = ...
         parent.s = sum.s ./ mu;
         parent.y = sum.y ./ mu;
         parent.f = feval(goal_f_name, parent.y);
+        parent.f_noisy = feval(noisy_f_name, parent.y);
         
         % Covariance matrix update
         C = (1 - 1/tau_c) .^ adjacence_C.*C + adjacence_C/tau_c.*(parent.s*parent.s');
         
         % Create output
+        generation = generation + 1;
+        f_dyn(generation) = parent.f;
+        noisy_f_dyn(generation) = parent.f_noisy;
+        sigman_dyn(generation) = parent.sigma;
+        y_dyn(:, generation) = parent.y;
+        fev_dyn(generation) = fevaluations + lambda;
+        lambda_dyn(generation) = lambda;
     end
+    
+    y_opt = parent.y;
+    
 end

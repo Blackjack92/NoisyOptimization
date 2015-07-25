@@ -1,0 +1,62 @@
+% Name:   RankPopulation
+% Author: Kevin Wallis
+%--------------------------------------------------------------------------
+%| Input parameters                                                       |
+%--------------------------------------------------------------------------
+%| Name                | Type        | Description                        |
+%--------------------------------------------------------------------------
+%| offspringPopulation | [M x N]     | Offspring population which should  |
+%|                     |             | be ranked                          |
+%| ordering            | String      | Ordering type                      |
+%--------------------------------------------------------------------------
+%| Output parameters                                                      |
+%--------------------------------------------------------------------------
+%| Name                | Type        | Description                        |
+%--------------------------------------------------------------------------
+%| y_opt               | [N]         | Optimal output vector              |
+%| f_dyn               | [M]         | Fitness value after each run       |
+%| noisy_f_dyn         | [M]         | Noisy fitness value after each run |
+%| sigma_dyn           | [M]         | Mutation strength after each run   |
+%| y_dyn               | [M x N]     | y vector after each run            |
+%| lambda_dyn          | [M]         | Number of offsprings after each run|
+%| noisy_f_name        | String      | Noisy function name                |
+%| goal_f_name         | String      | Goal function name                 |
+%| fev_dyn             | [M]         | Function evaluations after each run|
+%--------------------------------------------------------------------------
+function [ranking] = RankPopulation(offspringPopulation, ordering)
+    % Initialize output
+    ranking = [];
+
+    lambda = size(offspringPopulation, 2);
+    for l=1:lambda
+        indexBestValue = FindBest(offspringPopulation);
+        ranking(l) = offspringPopulation(indexBestValue);
+        
+    end
+    
+end
+
+function [index] = FindBest(offspringPopulation)
+        
+    lambda = size(offspringPopulation, 2);
+    bestValue = offspringPopulation(1).f;
+    index = 1;
+    
+    for l=2:lambda
+        if (offspringPopulation(l).f < bestValue)
+            bestValue = offspringPopulation(l).f;
+            index = l;
+        end
+    end
+end
+
+% select the my best offsprings of lambda offsprings 
+%     for i=1:(my) 
+%       indexBestValue = find(individual.F_tilde == min(individual.F_tilde));
+%       w_my_recombine = w_my_recombine + individual.w_tilde(indexBestValue, :);
+%       n_my_recombine = n_my_recombine + individual.n_tilde(indexBestValue, :); 
+%       rank_my_matrix = rank_my_matrix + individual.w_tilde(indexBestValue, :)' * individual.w_tilde(indexBestValue, :);  
+%       individual.F_tilde(indexBestValue) = inf;    
+%       % set the current best F_tilde value to inf get the second best F_tilde value in the next iteration
+%       % F_tilde can be changed because its not needed anymore
+%     endfor

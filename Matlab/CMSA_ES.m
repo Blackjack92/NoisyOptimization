@@ -30,7 +30,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     % Initialize input parameters
     parent.sigma = sigma_init;
     parent.y = y_init;
-    n = length(y_parent);
+    n = length(y_init);
     mu = mu_init;
     lambda = floor(mu/theta_init);
     
@@ -60,10 +60,11 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     while (numberOfRuns > 0) 
        numberOfRuns = numberOfRuns - 1;
        
-       offspringPopulation = [];
+       clear offspringPopulation;
+
        % Generate offsprings
        for l=1:lambda
-           offspring.sigma = sigma * exp(tau_sigma*randn(1));
+           offspring.sigma = parent.sigma * exp(tau_sigma*randn(1));
            offspring.s = chol(C)' * randn(n,1);
            offspring.z = offspring.sigma .* offspring.s;
            offspring.y = parent.y + offspring.z;
@@ -71,16 +72,18 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
            offspringPopulation(l) = offspring;
        end
        
-        % Ordering and selection
-        % TODO: check ordering
-        ranking = RankPopulation(offspringPopulation, ordering);
+        % Ordering
+        ranks = RankPopulation(offspringPopulation, '');
+        
+        % Selection
         sum.sigma = 0;
         sum.y = 0; 
         sum.s = 0;
+        
         for m=1:mu
-          sum.sigma = sum.sigma + offspringPopulation(ranking(m)).sigma;
-          sum.s = sum.s + offspringPopulation(ranking(m)).s;
-          sum.y = sum.y + offspringPopulation(ranking(m)).y;
+          sum.sigma = sum.sigma + ranks(m).sigma;
+          sum.s = sum.s + ranks(m).s;
+          sum.y = sum.y + ranks(m).y;
         end
         
         % Centroid evaluation

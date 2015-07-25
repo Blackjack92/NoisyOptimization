@@ -17,7 +17,7 @@
 %--------------------------------------------------------------------------
 function [ranking] = RankPopulation(offspringPopulation, ordering)
     % Initialize output
-    ranking = [];
+    clear ranking;
 
     lambda = size(offspringPopulation, 2);
     for l=1:lambda

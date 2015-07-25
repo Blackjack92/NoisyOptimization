@@ -1,4 +1,4 @@
-function [fitness] = Ellipsoid1Fitness(y)
+function [fitness] = EllipsoidFitness(y)
   y_1 = 0;
   N = size(y, 2);
   

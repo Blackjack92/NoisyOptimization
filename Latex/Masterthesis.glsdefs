@@ -1,0 +1,60 @@
+\ifglsentryexists{oop}{}%
+{%
+\gls@defglossaryentry{oop}%
+{%
+name={OOP},%
+sort={OOP},%
+type={acronym},%
+first={Object Oriented Programming\glsspace (OOP)},%
+firstplural={Object Oriented Programmings\glsspace (OOPs)},%
+text={OOP},%
+plural={OOPs},%
+description={\glslink {OOP}{Object Oriented Programming}},%
+descriptionplural={Object Oriented Programming\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Object Oriented Programming},%
+longplural={Object Oriented Programmings},%
+short={OOP},%
+shortplural={OOPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{OOP}{}%
+{%
+\gls@defglossaryentry{OOP}%
+{%
+name={\glslink {oop}{Object Oriented Programming}},%
+sort={\glslink {oop}{Object Oriented Programming}},%
+type={main},%
+first={Object Oriented Programming},%
+firstplural={Object Oriented Programmings},%
+text={Object Oriented Programming},%
+plural={Object Oriented Programmings},%
+description={Programming paradigm based on the idea of grouping data and methods in objects},%
+descriptionplural={Programming paradigm based on the idea of grouping data and methods in objects},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%

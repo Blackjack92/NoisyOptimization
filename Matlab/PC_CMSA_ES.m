@@ -128,7 +128,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
                 % (or "mu_c", see Alg. 2 in our report)
                 else     
                     mu = mu * 2;
-                    % The covariance matrix adaptaion is then turned off
+                    % The covariance matrix adaptation is then turned off
                     adjacence_C = 0;
                 end
                 % After each adjustment of the population size the waiting

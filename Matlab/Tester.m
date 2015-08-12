@@ -4,7 +4,8 @@
 more off;
 
 sigma_init = 1;
-y_init = [3;3;3;3;3];
+y_init = [30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30];
+% linspace(1,30,30);
 mu_init = 5;
 theta_init = 0.2;
 noisy_f_name = 'NoisyEllipsoidFitness';

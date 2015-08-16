@@ -32,7 +32,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     parent.y = y_init;
     n = length(y_init);
     mu = mu_init;
-    lambda = floor(mu/theta_init);
+    
     
     % Initialize output parameters
     y_opt = [];
@@ -65,6 +65,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     % Main loop
     while (numberOfRuns > 0) 
        numberOfRuns = numberOfRuns - 1;
+       lambda = floor(mu/theta_init);
        
        clear offspringPopulation;
 

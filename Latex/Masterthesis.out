@@ -1,6 +1,10 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.1.1}{Motivation}{chapter.1}% 2
 \BOOKMARK [0][-]{chapter.2}{State of the Art}{}% 3
-\BOOKMARK [0][-]{chapter.3}{Analysis}{}% 4
-\BOOKMARK [0][-]{chapter.4}{Interpretation}{}% 5
-\BOOKMARK [0][-]{chapter.5}{Conclusions}{}% 6
+\BOOKMARK [1][-]{section.2.1}{Different types of noise}{chapter.2}% 4
+\BOOKMARK [2][-]{subsection.2.1.1}{Constant noise variance}{section.2.1}% 5
+\BOOKMARK [2][-]{subsection.2.1.2}{Constant normalized noise variance}{section.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.1.3}{Actuator noise}{section.2.1}% 7
+\BOOKMARK [0][-]{chapter.3}{Analysis}{}% 8
+\BOOKMARK [0][-]{chapter.4}{Interpretation}{}% 9
+\BOOKMARK [0][-]{chapter.5}{Conclusions}{}% 10

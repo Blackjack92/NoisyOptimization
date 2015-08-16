@@ -33,7 +33,6 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     n = length(y_init);
     mu = mu_init;
     
-    
     % Initialize output parameters
     y_opt = [];
     f_dyn = [];

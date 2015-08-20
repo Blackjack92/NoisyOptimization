@@ -3,8 +3,8 @@ function [fitness] = NoisyEllipsoidFitness(y)
   N = size(y, 2);
   
   for i=1:N
-    y_1 = y_1 + i*(y(i)^2) + randn(1);  
+    y_1 = y_1 + i*(y(i)^2);  
   end
  
-  fitness = y_1;
+  fitness = y_1  + randn(1);
 end

@@ -44,7 +44,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     
     % Initialize covariance matrix
     C = eye(n);
-    adjacence_C = 1; 
+    adapted_C = 1; 
     
     % Initialize tau
     tau_sigma = 1/sqrt(2*n);
@@ -100,7 +100,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
         parent.f_noisy = feval(noisy_f_name, parent.y);
         
         % Covariance matrix update
-        C = (1 - 1/tau_c) .^ adjacence_C.*C + adjacence_C/tau_c.*(parent.s*parent.s');
+        C = (1 - 1/tau_c) .^ adapted_C.*C + adapted_C/tau_c.*(parent.s*parent.s');
         
         % Create output
         generation = generation + 1;
@@ -129,7 +129,7 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
                 else     
                     mu = mu * 2;
                     % The covariance matrix adaptation is then turned off
-                    adjacence_C = 0;
+                    adapted_C = 0;
                 end
                 % After each adjustment of the population size the waiting
                 % time is reset to its initial value

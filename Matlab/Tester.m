@@ -4,10 +4,13 @@
 more off;
 
 sigma_init = 1;
-y_init = [30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30];
+y_init = [30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30; ...
+    30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30;30];
 % linspace(1,30,30);
-mu_init = 5;
-theta_init = 0.2;
+n = 30;
+% y_init =ones(n,1);
+mu_init = 3;
+theta_init = 1/3;
 noisy_f_name = 'NoisyEllipsoidFitness';
 goal_f_name = 'EllipsoidFitness';
 

@@ -34,14 +34,19 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     mu = mu_init;
     lambda = floor(mu/theta_init);
     
+    % Initialize number of runs
+    numberOfRuns = 1000;
+    generation = 0;
+    fevaluations = 0;
+    
     % Initialize output parameters
-    y_opt = [];
-    f_dyn = [];
-    noisy_f_dyn = [];
     sigma_dyn = [];
-    y_dyn = [];
-    lambda_dyn = [];
-    fev_dyn =[];
+    y_dyn = zeros(n, numberOfRuns);
+    f_dyn = zeros(numberOfRuns);
+    noisy_f_dyn = zeros(numberOfRuns);
+    sigman_dyn = zeros(numberOfRuns);
+    fev_dyn = zeros(numberOfRuns);
+    lambda_dyn = zeros(numberOfRuns);
     
     % Initialize covariance matrix
     C = eye(n);
@@ -51,16 +56,16 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     tau_sigma = 1/sqrt(2*n);
     tau_c = 1 + n*(n+1)/(2*mu);
     
-    % Initialize number of runs
-    numberOfRuns = 1000;
-    generation = 0;
-    fevaluations = 0;
+    % Offsrping struct
+    offspring_t = struct('sigma', 1, 's', 1, 'z', 1, 'y', [], 'f', 0);
     
     % Main loop
     while (numberOfRuns > 0) 
        numberOfRuns = numberOfRuns - 1;
        
-       clear offspringPopulation;
+       % Performance improvement
+       %clear offspringPopulation;
+       offspringPopulation = repmat(offspring_t, 1,lambda);
 
        % Generate offsprings
        for l=1:lambda

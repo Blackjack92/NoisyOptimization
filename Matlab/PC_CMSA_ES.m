@@ -25,7 +25,7 @@
 %| fev_dyn             | [M]         | Function evaluations after each run|
 %--------------------------------------------------------------------------
 function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ...
-    CMSA_ES(sigma_init, y_init, mu_init, theta_init, noisy_f_name, goal_f_name)
+    PC_CMSA_ES(sigma_init, y_init, mu_init, theta_init, noisy_f_name, goal_f_name)
     
     % Initialize input parameters
     parent.sigma = sigma_init;
@@ -33,14 +33,19 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     n = length(y_init);
     mu = mu_init;
     
+    % Initialize number of runs
+    numberOfRuns = 1000;
+    generation = 0;
+    fevaluations = 0;
+    
     % Initialize output parameters
-    y_opt = [];
-    f_dyn = [];
-    noisy_f_dyn = [];
     sigma_dyn = [];
-    y_dyn = [];
-    lambda_dyn = [];
-    fev_dyn =[];
+    y_dyn = zeros(n, numberOfRuns);
+    f_dyn = zeros(numberOfRuns);
+    noisy_f_dyn = zeros(numberOfRuns);
+    sigman_dyn = zeros(numberOfRuns);
+    fev_dyn = zeros(numberOfRuns);
+    lambda_dyn = zeros(numberOfRuns);
     
     % Initialize covariance matrix
     C = eye(n);
@@ -56,18 +61,18 @@ function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ..
     alpha = 0.5;
     wait = 0;
     
-    % Initialize number of runs
-    numberOfRuns = 1000;
-    generation = 0;
-    fevaluations = 0;
+    % Offsrping struct
+    offspring_t = struct('sigma', 1, 's', 1, 'z', 1, 'y', [], 'f', 0);
     
     % Main loop
     while (numberOfRuns > 0) 
        numberOfRuns = numberOfRuns - 1;
        lambda = floor(mu/theta_init);
        
-       clear offspringPopulation;
-
+       % Performance improvement
+       %clear offspringPopulation;
+       offspringPopulation = repmat(offspring_t, 1,lambda);
+       
        % Generate offsprings
        for l=1:lambda
            offspring.sigma = parent.sigma * exp(tau_sigma*randn(1));

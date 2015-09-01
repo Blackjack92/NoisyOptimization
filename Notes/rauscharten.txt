@@ -1,0 +1,5 @@
+es gibt vier verschiedene arten von rauschen, 
+dazu zählen das Rauschen der Fitnessfunktion, 
+das Ändern der Designparametern während der Optimierung,
+das Annähern der Fitnessfunktion, d.h. es treten Annährungsfehler auf und 
+die letzte Art umfasst das Verändern des Optimums über die Zeit (kein konstantes Optimum).

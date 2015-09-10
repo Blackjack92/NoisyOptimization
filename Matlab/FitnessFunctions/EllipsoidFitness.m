@@ -3,8 +3,8 @@ function [fitness] = EllipsoidFitness(y)
   N = size(y, 2);
   
   for i=1:N
-    y_1 = y_1 + 1e6^((i-1)/(N-1))*(y(i)^2);
+    y_1 = y_1 + i*(y(i)^2);  
   end
-  
+ 
   fitness = y_1;
 end

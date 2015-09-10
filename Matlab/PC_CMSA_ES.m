@@ -27,6 +27,10 @@
 function [y_opt, f_dyn, noisy_f_dyn, sigma_dyn, y_dyn, lambda_dyn, fev_dyn] = ...
     PC_CMSA_ES(sigma_init, y_init, mu_init, theta_init, noisy_f_name, goal_f_name)
     
+    % Add relative path to the fitness functions
+    mfilepath=fileparts(which(mfilename));
+    addpath(fullfile(mfilepath,'/FitnessFunctions'));
+
     % Initialize input parameters
     parent.sigma = sigma_init;
     parent.y = y_init;

@@ -1,6 +1,11 @@
 % Name:   Tester
 % Author: Kevin Wallis
 
+    
+% Add relative path to the fitness functions
+mfilepath=fileparts(which(mfilename));
+addpath(fullfile(mfilepath,'/../Algorithms'));
+
 more off;
 
 sigma_init = 1;

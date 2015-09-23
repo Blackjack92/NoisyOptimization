@@ -3,3 +3,5 @@ http://www.fhv.at/media/pdf/forschung/prozess-und-produktengineering/working-pap
 
 Nikolaus Hansen:
 https://www.lri.fr/~hansen/publications.html
+
+http://www.researchgate.net/publication/220740633_Comparison_of_cauchy_EDA_and_BIPOP-CMA-ES_algorithms_on_the_BBOB_noiseless_testbed
